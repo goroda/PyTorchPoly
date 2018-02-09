@@ -4,6 +4,7 @@ from poly import Legendre, MultiLegendre
 import numpy as np
 import time
 
+torch.set_num_threads(4)
 
 def gpu_test():
     dtype = torch.cuda.FloatTensor
@@ -36,6 +37,15 @@ def gpu_time(N, order):
 
     return vand_torch
 
+def gpu_time_nd(order, dim, x):
+
+    dtype = torch.cuda.FloatTensor
+    ptorch = MultiLegendre(dim, order)
+    vand_torch = ptorch(Variable(x.type(dtype)))
+
+    return vand_torch
+
+
 def cpu_time(N, order):
 
     dtype = torch.FloatTensor
@@ -43,6 +53,14 @@ def cpu_time(N, order):
 
     ptorch = Legendre(order)
     vand_torch = ptorch(x)
+
+    return vand_torch
+
+def cpu_time_nd(order, dim, x):
+
+    dtype = torch.FloatTensor
+    ptorch = MultiLegendre(dim, order)
+    vand_torch = ptorch(Variable(x.type(dtype)))
 
     return vand_torch
 
@@ -56,10 +74,12 @@ def numpy_time(N , order):
 if __name__ == "__main__":
     
 
-    # gpu_test()
+    gpu_test()
 
     N = 1000000
     order = 200
+
+    print("Univariate ")
     
     start = time.clock()
     gpu_vand = gpu_time(N, order)
@@ -76,6 +96,27 @@ if __name__ == "__main__":
     end = time.clock()
     print("Numpy Elapsed time = ", end - start)
 
+    diff = torch.norm(gpu_vand.cpu() - cpu_vand) / torch.norm(cpu_vand)
+    print("diff = ", diff)
     
+
+    print("Multivariate (warning on CPU takes almost a minute )")
+    dim = 10
+    order = 5
+    N = 100000
+    x = torch.rand(N, dim) * 2.0 - 1.0
+
+    
+    start = time.clock()
+    gpu_vand = gpu_time_nd(order, dim, x)
+    end = time.clock()
+    print("Multivariate GPU Elapsed time = ", end - start)
+
+
+    start = time.clock()
+    cpu_vand = cpu_time_nd(order, dim, x)
+    end = time.clock()
+    print("Multivariate CPU Elapsed time = ", end - start)
+
     diff = torch.norm(gpu_vand.cpu() - cpu_vand) / torch.norm(cpu_vand)
     print("diff = ", diff)
