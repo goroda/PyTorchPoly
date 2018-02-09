@@ -13,14 +13,9 @@ class Legendre(nn.Module):
     def forward(self, x):
 
         retvar = Variable(torch.zeros(x.size(0), self.order+1).type(x.data.type()))
-        p2 = Variable(torch.ones(x.size()).type(x.data.type()))
-        p1 = x
-        retvar[:, 0] = p2
-        if self.order == 1:
-            retvar[:, 1] = p1
-        elif self.order > 1:
-            retvar[:, 0] = p2
-            retvar[:, 1] = p1
+        retvar[:, 0] = x * 0 + 1
+        if self.order > 0:
+            retvar[:, 1] = x
             for ii in range(1, self.order):
                 retvar[:, ii+1] = ((2 * ii + 1) * x * retvar[:, ii] - \
                                    ii * retvar[:, ii-1]) / (ii + 1)
