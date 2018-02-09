@@ -1,6 +1,6 @@
 import torch
 from torch.autograd import Variable
-from pytorch_poly import Legendre, MultiLegendre
+from poly import Legendre, MultiLegendre
 import numpy as np
 import time
 
@@ -66,7 +66,7 @@ def uni_time():
 if __name__ == "__main__":
 
     uni_test()
-    # uni_time()
+    uni_time()
 
     dim = 20
     order = 3

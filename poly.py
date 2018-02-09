@@ -2,7 +2,6 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 
-# sys.path.append("/Users/alex/Software/mypython/pyindex")
 import pyindex
 
 class Legendre(nn.Module):
