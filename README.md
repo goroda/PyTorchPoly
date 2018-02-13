@@ -6,7 +6,7 @@ Orthonormal polynomials using pytorch
 2) [pyindex](github.com/goroda/pyindex/)
 
 Author: Alex Gorodetsky  
-Email: alex@alexgorodetsky.com  
+Email: goroda@umich.edu
 Copyright (c) University of Michigan  
 License: MIT
 
