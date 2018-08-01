@@ -1,6 +1,6 @@
 import torch
 from torch.autograd import Variable
-from poly import Legendre, MultiLegendre
+import poly
 import numpy as np
 import time
 
@@ -9,23 +9,23 @@ def uni_test():
 
     dtype = torch.DoubleTensor
     
-    x = Variable(torch.linspace(-1, 1, 10000).type(dtype))
+    x = torch.linspace(-1, 1, 10000).type(dtype)
     order = 300
-    vand = np.polynomial.legendre.legvander(x.data.numpy(), order )
+    vand = np.polynomial.legendre.legvander(x.data.numpy(), order)
 
     # print("vand done", vand.shape)
 
     # def func():
-    ptorch = Legendre(order)
-    vand_torch = ptorch(x)
+    # ptorch = Legendre(order)
+    vand_torch = poly.legendre(x, order)
     print("torch done")
 
     difference = np.linalg.norm(vand - vand_torch.data.numpy())
     print("difference = ", difference)
 
     # checking to make sure can run multiple times
-    vand_torch = ptorch(x)
-    vand_torch = ptorch(x)
+    vand_torch = poly.legendre(x, order)
+    vand_torch = poly.legendre(x, order)
     difference = np.linalg.norm(vand - vand_torch.data.numpy())
     print("difference = ", difference)
 
@@ -42,8 +42,7 @@ def uni_time():
         return vand
 
     def ftorch():
-        ptorch = Legendre(order)
-        vand_torch = ptorch(x)
+        vand_torch = poly.legendre(x, order)
         return vand_torch
 
 
@@ -73,10 +72,10 @@ if __name__ == "__main__":
     N = 40
     x = Variable(torch.rand(N, dim)*2.0 - 1.0)
 
-    poly = MultiLegendre(dim, order)
-    print("Number of unknowns = ", poly.num)
-    print(poly(x))
+    # poly = MultiLegendre(dim, order)
+    # print("Number of unknowns = ", poly.num)
+    # print(poly(x))
 
-    for param in poly.parameters():
-        print(param)
+    # for param in poly.parameters():
+    #     print(param)
     
