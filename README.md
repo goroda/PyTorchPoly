@@ -22,7 +22,7 @@ Orthonormal polynomials using pytorch
 Multivariate polynomials are temporarily unavailable
 
 Author: Alex Gorodetsky  
-Email: goroda@umich.edu
+Email: goroda@umich.edu  
 Copyright (c) University of Michigan  
 License: MIT
 
