@@ -3,7 +3,7 @@ Orthonormal polynomials using pytorch
 
 ## Requirements
 1) [pytorch](http://pytorch.org/)
-2) [pyindex](github.com/goroda/pyindex/)
+2) [pyindex](https://github.com/goroda/pyindex)
 
 ## Available Polynomials
 
