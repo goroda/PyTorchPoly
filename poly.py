@@ -4,7 +4,7 @@ import torch
 from torch.autograd import Variable
 import torch.nn as nn
 
-import pyindex
+# import pyindex
 
 def legendre(x, degree):
     retvar = torch.ones(x.size(0), degree+1).type(x.type())
